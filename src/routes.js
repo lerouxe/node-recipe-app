@@ -40,4 +40,11 @@ router.post('/recipes/:id/edit', async (req, res) => {
 	res.redirect(`/recipes/${recipeId}`)
 })
 
+// Get a random recipe
+router.get('/recipes/random', async (req, res) => {
+	const db = await getDbConnection()
+	const recipe = await db.get('SELECT * FROM recipes ORDER BY title LIMIT 1')
+	res.render('recipe', { recipe })
+})
+
 module.exports = router
